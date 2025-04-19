@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <title>心理健康资源推荐</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e6f7ff;
+            color: #333;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        .resource-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .resource-link {
+            margin-top: 1rem;
+            display: inline-block;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .resource-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body class="p-8">
+    <section class="mb-12">
+        <h2 class="text-3xl font-bold mb-4">书籍推荐</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="resource-card p-6">
+                <img src="images/book1.jpg" alt="蛤蟆先生去看心理医生" class="mb-4 rounded">
+                <h3 class="text-xl font-bold">《蛤蟆先生去看心理医生》</h3>
+                <p class="mt-2">这本书以童话的形式，讲述了蛤蟆先生接受心理咨询的过程。通过蛤蟆先生和心理咨询师苍鹭的对话，读者可以了解到心理咨询的基本流程和方法，以及如何应对生活中的各种心理问题。</p>
+                <a href="https://book.douban.com/subject/35324866/" target="_blank" class="resource-link">购买链接</a>
+            </div>
+            <div class="resource-card p-6">
+                <img src="images/book2.jpg" alt="被讨厌的勇气" class="mb-4 rounded">
+                <h3 class="text-xl font-bold">《被讨厌的勇气》</h3>
+                <p class="mt-2">该书基于阿德勒心理学，探讨了如何摆脱他人的期待，勇敢地做自己。它告诉我们，要学会接受自己的不完美，拥有被别人讨厌的勇气，才能获得真正的自由和幸福。</p>
+                <a href="https://book.douban.com/subject/26870089/" target="_blank" class="resource-link">购买链接</a>
+            </div>
+            <div class="resource-card p-6">
+                <img src="images/book3.jpg" alt="少有人走的路" class="mb-4 rounded">
+                <h3 class="text-xl font-bold">《少有人走的路》</h3>
+                <p class="mt-2">这是一本关于心灵成长的书籍，作者从自律、爱、成长与信仰、恩典四个方面，深入探讨了如何面对人生的苦难和挑战，实现自我成长和心智成熟。</p>
+                <a href="https://book.douban.com/subject/1022430/" target="_blank" class="resource-link">购买链接</a>
+            </div>
+        </div>
+    </section>
+    <section class="mb-12">
+        <h2 class="text-3xl font-bold mb-4">电影推荐</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="resource-card p-6">
+                <img src="images/movie1.jpg" alt="美丽心灵" class="mb-4 rounded">
+                <h3 class="text-xl font-bold">《美丽心灵》</h3>
+                <p class="mt-2">影片根据诺贝尔经济学奖得主约翰·福布斯·纳什的真实经历改编，讲述了患有精神分裂症的纳什在博弈论和微分几何学领域潜心研究，最终获得诺贝尔经济学奖的故事。它展现了一个人在与精神疾病抗争的过程中，如何坚持自己的信念，追求梦想。</p>
+                <a href="https://movie.douban.com/subject/1292063/" target="_blank" class="resource-link">观看渠道（豆瓣）</a>
+            </div>
+            <div class="resource-card p-6">
+                <img src="images/movie2.jpg" alt="心灵捕手" class="mb-4 rounded">
+                <h3 class="text-xl font-bold">《心灵捕手》</h3>
+                <p class="mt-2">故事围绕着天才少年威尔展开，他在数学方面有着惊人的天赋，但却因为童年的创伤而封闭了自己的内心。在心理医生桑恩的帮助下，威尔逐渐打开心扉，直面自己的过去，实现了自我成长。</p>
+                <a href="https://movie.douban.com/subject/1292720/" target="_blank" class="resource-link">观看渠道（豆瓣）</a>
+            </div>
+            <div class="resource-card p-6">
+                <img src="images/movie3.jpg" alt="海上钢琴师" class="mb-4 rounded">
+                <h3 class="text-xl font-bold">《海上钢琴师》</h3>
+                <p class="mt-2">1900 是一位天才钢琴家，他一生都未曾下过船。影片通过 1900 的故事，探讨了孤独、选择和对自由的追求等主题，展现了一个人在复杂的世界中坚守自我的精神。</p>
+                <a href="https://movie.douban.com/subject/1292062/" target="_blank" class="resource-link">观看渠道（豆瓣）</a>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h2 class="text-3xl font-bold mb-4">网站和 APP 推荐</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="resource-card p-6">
+                <h3 class="text-xl font-bold">简单心理</h3>
+                <p class="mt-2">这是一个专业的心理健康服务平台，提供心理咨询、心理测试、心理课程等多种服务。平台上的咨询师都经过严格筛选，具有丰富的专业经验。</p>
+                <a href="https://www.jiandanxinli.com/" target="_blank" class="resource-link">访问网站</a>
+            </div>
+            <div class="resource-card p-6">
+                <h3 class="text-xl font-bold">壹心理</h3>
+                <p class="mt-2">壹心理拥有海量的心理健康文章、心理测试和课程，同时也提供心理咨询服务。其 APP 界面简洁，操作方便，适合不同年龄段的用户使用。</p>
+                <a href="https://www.xinli001.com/" target="_blank" class="resource-link">访问网站</a>
+            </div>
+            <div class="resource-card p-6">
+                <h3 class="text-xl font-bold">潮汐</h3>
+                <p class="mt-2">潮汐是一款专注于冥想和放松的 APP，它提供了丰富的冥想课程、白噪音和专注时钟等功能，帮助用户缓解压力、改善睡眠质量。</p>
+                <a href="https://www.tidesios.com/" target="_blank" class="resource-link">访问网站</a>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+    

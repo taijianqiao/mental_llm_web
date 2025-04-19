@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+  <title>一般健康问卷（GHQ-12）</title>
+  <style type="text/tailwindcss">
+    @layer base {
+      body {
+        background-color: #f4f9f9;
+        color: #333;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+    }
+
+    @layer components {
+      .fresh-card {
+        background-color: #e4f1fe;
+        border: 1px solid #aed6f1;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .fresh-button {
+        background-color: #73a6ff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+      }
+
+      .fresh-button:hover {
+        background-color: #5c93ff;
+        box-shadow: 0 4px 12px rgba(115, 166, 255, 0.4);
+      }
+
+      .fresh-radio:checked {
+        accent-color: #73a6ff;
+      }
+
+      .fresh-radio:checked+span {
+        color: #73a6ff;
+      }
+
+      .loading {
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          opacity: 1;
+        }
+
+        50% {
+          opacity: 0.5;
+        }
+
+        100% {
+          opacity: 1;
+        }
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="p-6 max-w-3xl mx-auto space-y-6 min-h-screen">
+    <h1 class="text-2xl font-bold text-center text-blue-500">一般健康问卷（GHQ-12）</h1>
+    <p class="text-gray-600 text-center">我们将了解您最近几周内的身体健康状况。在以下问题中选择最适当的选项。请回答所有的问题。这里的问题是针对从2、3周前到现在的状况。</p>
+
+    <form @submit.prevent="handleSubmit" class="space-y-6">
+      <div v-for="(question, index) in questions" :key="index" class="fresh-card p-6">
+        <h3 class="text-lg font-semibold mb-1 text-blue-500">{{ index + 1 }}. {{ question.text }}</h3>
+        <hr class="my-4 border-blue-200">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-3">
+          <label v-for="(label, i) in question.options" :key="i"
+            class="inline-flex items-center space-x-2 cursor-pointer p-2 rounded-md transition duration-150 ease-in-out hover:bg-blue-100 peer-checked:bg-blue-100 peer-checked:ring-2 peer-checked:ring-blue-300">
+            <input type="radio" :name="'q' + index" :value="i + 1" v-model="answers[index]" required
+              class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500 peer fresh-radio">
+            <span class="text-gray-700">{{ label }}</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button type="submit"
+          class="mt-6 fresh-button px-8 py-3 rounded-lg text-base font-medium shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Al分析结果
+        </button>
+      </div>
+    </form>
+
+    <div class="mt-8 p-6 border border-blue-200 rounded-lg bg-blue-50 shadow-md">
+      <h2 class="text-lg font-semibold text-blue-600 mb-2">关于GHQ-12量表</h2>
+      <p class="text-gray-700 mb-2">健康问卷（GHQ-12）是一种常用的量表，用于评估个体的心理健康状况。GHQ-12是基于一种称为"一般健康问卷(GHQ-28)"（General Health Questionnaire 28）的工具发展而来，它是由心理学家贝丝尔（David Goldberg）和威廉斯（Dennis Williams）于1978年开发的。</p>
+      <p class="text-gray-700 mb-2">GHQ-12是一种自评量表，包含12个问题，旨在评估个体的抑郁、焦虑、社交功能以及一般健康状况。这些问题涉及到个体过去几周内的感受和经历，包括情绪波动、平静程度、自信心等等。</p>
+      <p class="text-gray-700">注：本量表的计分是记录1，2，3，4分，在正常人群中平均得分为23.62±7.92。</p>
+    </div>
+
+    <div v-if="result" class="mt-8 p-6 border border-blue-200 rounded-lg bg-blue-50 shadow-md">
+      <h2 class="text-xl font-semibold mb-3 text-blue-500">Al分析结果</h2>
+      <hr class="my-4 border-blue-200">
+      <div class="prose prose-blue">
+        <template v-if="result">
+          <div v-html="formatResult(result)"></div>
+        </template>
+      </div>
+    </div>
+    <div v-if="isLoading" class="mt-6 text-center text-gray-600 loading">
+      <p>正在分析中，请稍候...</p>
+    </div>
+    <div v-if="errorMsg" class="mt-6 p-4 border border-red-300 rounded bg-red-50 text-red-700 shadow-sm">
+      <h2 class="text-lg font-semibold mb-2">错误</h2>
+      <p>{{ errorMsg }}</p>
+    </div>
+  </div>
+  <script type="module">
+    import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+
+    const app = createApp({
+      setup() {
+        const questions = [
+          { 
+            text: '在做什么事情的时候，能集中精神吗？', 
+            type: 'positive',
+            options: ['能集中', '和平时一样', '不能集中', '完全不能集中']
+          },
+          { 
+            text: '有由于过分担心而失眠的情况吗？', 
+            type: 'negative',
+            options: ['没有过', '和平时一样', '有过', '总是这样']
+          },
+          { 
+            text: '觉得自己是有用的人吗？', 
+            type: 'positive',
+            options: ['有用', '和平时一样', '没有用', '完全没有用']
+          },
+          { 
+            text: '觉得自己有决断力吗？', 
+            type: 'positive',
+            options: ['有', '和平时一样', '没有', '完全没有']
+          },
+          { 
+            text: '总是处于紧张状态吗？', 
+            type: 'negative',
+            options: ['不紧张', '和平时一样', '紧张', '非常紧张']
+          },
+          { 
+            text: '觉得自己不能解决问题吗？', 
+            type: 'negative',
+            options: ['能', '和平时一样', '不能', '完全不能']
+          },
+          { 
+            text: '能享受日常活动吗？', 
+            type: 'positive',
+            options: ['能', '和平时一样', '不能', '完全不能']
+          },
+          { 
+            text: '能够面对你所面临的问题吗？', 
+            type: 'positive',
+            options: ['能', '和平时一样', '不能', '完全不能']
+          },
+          { 
+            text: '感到痛苦、忧虑吗？', 
+            type: 'negative',
+            options: ['不觉得', '和平时一样', '觉得', '总是觉得']
+          },
+          { 
+            text: '失去自信了吗？', 
+            type: 'negative',
+            options: ['没有', '和平时一样', '失去', '完全失去']
+          },
+          { 
+            text: '觉得自己是没有价值的人吗？', 
+            type: 'negative',
+            options: ['没有觉得', '和平时一样', '觉得', '非常觉得']
+          },
+          { 
+            text: '觉得所有的事情都顺利吗？', 
+            type: 'positive',
+            options: ['顺利', '和平时一样', '不顺利', '完全不顺利']
+          }
+        ];
+
+        const answers = ref(Array(questions.length).fill(null));
+        const result = ref('');
+        const isLoading = ref(false);
+        const errorMsg = ref('');
+
+        const formatResult = (resultText) => {
+          let formatted = resultText
+            .replace(/###/g, '<h3 class="text-lg font-bold text-blue-600 mb-3">')
+            .replace(/\*\*/g, '')
+            .replace(/---/g, '<hr class="my-6 border-blue-200">')
+            .replace(/^综合评价$/gm, '<h3 class="text-lg font-bold text-blue-600 mb-3">综合评价</h3>')
+            .replace(/^积极方面$/gm, '<h3 class="text-lg font-bold text-blue-600 mb-3">积极方面</h3>')
+            .replace(/^需要关注的方面$/gm, '<h3 class="text-lg font-bold text-blue-600 mb-3">需要关注的方面</h3>')
+            .replace(/^改善建议$/gm, '<h3 class="text-lg font-bold text-blue-600 mb-3">改善建议</h3>')
+            .replace(/^\* /gm, '<li class="mb-2">')
+            .replace(/^1. /gm, '<li class="mb-2">')
+            .replace(/^  \* /gm, '<ul class="ml-6 mb-4"><li class="mb-2">')
+            .replace(/<li>(.*)<\/li>/g, '<li class="mb-2">$1</li>')
+            .replace(/<li>(.*)<\/ul>/g, '<li class="mb-2">$1</ul>')
+            .replace(/<\/li><li>/g, '</li><li class="mb-2">')
+            .replace(/<\/li><ul>/g, '</li><ul class="ml-6 mb-4">')
+            .replace(/<li><ul>/g, '<li class="mb-2"><ul class="ml-6 mb-4">')
+            .replace(/<\/li><\/li>/g, '</li>')
+            .replace(/<\/li><\/ul><\/li>/g, '</li></ul>')
+            .replace(/<li><\/li>/g, '')
+            .replace(/<li>(.*)<\/li>/g, '<li class="mb-2">$1</li>')
+            .replace(/<\/li><li>/g, '</li><li class="mb-2">')
+            .replace(/<\/li><\/ul>/g, '</ul>')
+            .replace(/<li><ul>/g, '<li class="mb-2"><ul class="ml-6 mb-4">')
+            .replace(/<li><\/li>/g, '');
+
+          formatted = `<div class="space-y-4">${formatted}</div>`;
+          return formatted;
+        };
+
+        const handleSubmit = async () => {
+          result.value = '';
+          errorMsg.value = '';
+          isLoading.value = true;
+
+          if (answers.value.some(answer => answer === null)) {
+            errorMsg.value = '请完成所有题目后再提交分析。';
+            isLoading.value = false;
+            return;
+          }
+
+          const payload = questions.map((q, i) => ({
+            question: q.text,
+            type: q.type,
+            answer: q.options[answers.value[i] - 1],
+            score: answers.value[i]
+          }));
+
+          try {
+            console.log('正在发送请求到后端...');
+            const response = await fetch('http://localhost:8080/api/self-evaluation/analyze', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify({
+                questions: payload
+              })
+            });
+
+            console.log('收到后端响应:', response.status, response.statusText);
+            
+            if (!response.ok) {
+              let errorText = `${response.status} ${response.statusText}`;
+              let responseBodyText = '';
+              try {
+                responseBodyText = await response.text();
+                console.log('错误响应内容:', responseBodyText);
+                try {
+                  const errorData = JSON.parse(responseBodyText);
+                  errorText += `. ${errorData.error?.message || responseBodyText}`;
+                } catch (jsonParseError) {
+                  errorText += `. Response body: ${responseBodyText}`;
+                  console.warn('Failed to parse non-OK API response as JSON:', jsonParseError);
+                }
+              } catch (textError) {
+                errorText += `. Unable to read error response body.`;
+                console.error('Failed to read non-OK API response as text:', textError);
+              }
+              throw new Error(`API 请求失败: ${errorText}`);
+            } else {
+              const responseText = await response.text();
+              console.log('成功获取分析结果');
+              result.value = responseText;
+            }
+
+          } catch (err) {
+            errorMsg.value = `分析失败，请稍后重试或检查 API 密钥及网络连接。\n错误详情：${err.message}`;
+            console.error('API 请求或处理过程中发生错误:', err);
+          } finally {
+            isLoading.value = false;
+          }
+        };
+
+        return {
+          questions,
+          answers,
+          result,
+          isLoading,
+          errorMsg,
+          handleSubmit,
+          formatResult
+        };
+      }
+    });
+
+    app.mount('body');
+  </script>
+</body>
+
+</html>    

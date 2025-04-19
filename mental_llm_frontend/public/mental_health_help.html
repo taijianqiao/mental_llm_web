@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <title>心理健康帮助</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fafc;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #2d3748;
+        }
+
+        p {
+            color: #4a5568;
+        }
+
+        .card {
+            transition: transform 0.3s ease;
+            width: calc(33.333% - 16px); /* 假设一行放三个卡片，减去间距 */
+            min-width: 280px; /* 最小宽度 */
+            box-sizing: border-box;
+            margin: 8px;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .section-label {
+            text-align: left;
+            margin-left: 8px;
+        }
+
+        .service-container,
+        .hotline-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+    </style>
+</head>
+
+<body class="p-8">
+    <!-- 导航栏 -->
+    <nav class="flex justify-between items-center mb-12">
+        <h1 class="text-3xl font-bold text-green-600">心理健康专业帮助</h1>
+        <ul class="flex space-x-6">
+            <li><a href="#" class="text-gray-600 hover:text-green-600">首页</a></li>
+            <li><a href="#" class="text-gray-600 hover:text-green-600">服务</a></li>
+            <li><a href="#" class="text-gray-600 hover:text-green-600">海南心理健康救助热线</a></li>
+            <li><a href="#" class="text-gray-600 hover:text-green-600">联系我们</a></li>
+        </ul>
+    </nav>
+
+    <!-- 英雄部分 -->
+    <section class="flex flex-col md:flex-row items-center justify-between mb-16">
+        <div class="md:w-1/2">
+            <h2 class="text-4xl font-bold mb-4">关注心理健康，开启美好生活</h2>
+            <p class="text-lg mb-6">我们提供专业的心理健康咨询服务，帮助你应对生活中的各种挑战，重拾内心的平静与快乐。</p>
+            <a href="#" class="bg-green-600 text-white py-3 px-6 rounded-md hover:bg-green-700">了解更多</a>
+        </div>
+        <div class="md:w-1/2 mt-8 md:mt-0">
+            <img src="https://picsum.photos/600/400" alt="心理健康图片" class="rounded-md shadow-md">
+        </div>
+    </section>
+
+    <!-- 服务部分 -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 text-center">我们的服务</h2>
+        <div class="service-container">
+            <div class="card bg-white p-8 rounded-md shadow-md">
+                <i class="fa-solid fa-microchip text-green-600 text-4xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">微调大模型咨询服务</h3>
+                <p>借助先进的大模型技术，为你提供个性化的心理健康微调方案，精准解决心理问题。</p>
+            </div>
+            <div class="card bg-white p-8 rounded-md shadow-md">
+                <i class="fa-solid fa-brain text-green-600 text-4xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">AI心理健康评估</h3>
+                <p>利用人工智能算法，快速、准确地评估你的心理健康状况，为你生成详细的评估报告。</p>
+            </div>
+            <div class="card bg-white p-8 rounded-md shadow-md">
+                <i class="fa-solid fa-book-open text-green-600 text-4xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">心理健康资源推荐</h3>
+                <p>根据你的心理健康需求，为你推荐书籍、文章、视频等资源，助力你提升心理素养。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 海南心理健康救助热线部分 -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 text-center">海南心理健康救助热线</h2>
+        <p class="section-label">全国：</p>
+        <div class="hotline-container">
+            <div class="card bg-white p-8 rounded-md shadow-md">
+                <i class="fa-solid fa-phone text-green-600 text-4xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">全国统一心理援助热线</h3>
+                <p>号码为12356，由国家卫生健康委员会协调工业和信息化部设置，2025年5月1日0时前，各地现有心理援助热线将与 “12356” 连接。</p>
+            </div>
+            <div class="card bg-white p-8 rounded-md shadow-md">
+                <i class="fa-solid fa-phone text-green-600 text-4xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">全国希望24小时生命危机干预热线</h3>
+                <p>号码是400 - 161 - 9995，提供24小时生命危机干预服务。</p>
+            </div>
+        </div>
+        <p class="section-label mt-12 mb-8">海南省：您可通过登录海口市社会心理服务平台，将免费为您提供在线心理健康知识宣传教育、心理自测、心理调适等多种自主服务，期待您的使用！</p>
+        <div class="hotline-container">
+            <div class="card bg-white p-8 rounded-md shadow-md">
+                <i class="fa-solid fa-phone text-green-600 text-4xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">海南省24小时心理援助热线</h3>
+                <p>号码为96363，由12名专业心理治疗师团队提供免费公益服务。</p>
+            </div>
+            <div class="card bg-white p-8 rounded-md shadow-md">
+                <i class="fa-solid fa-phone text-green-600 text-4xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">海南省青少年心理援助热线</h3>
+                <p>号码是12355，服务时间为每天8:30 - 12:00，14:30 - 17:30。</p>
+            </div>
+            <div class="card bg-white p-8 rounded-md shadow-md">
+                <i class="fa-solid fa-phone text-green-600 text-4xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">海口市心理援助热线</h3>
+                <p>号码为18976864951，服务时间是每天8:30 - 17:30。</p>
+            </div>
+        </div>
+        <p class="text-center mt-8">专业的心理咨询师将随时倾听您的“心”声，为您解忧！</p>
+    </section>
+
+    <!-- 联系我们部分 -->
+    <section>
+        <h2 class="text-3xl font-bold mb-8 text-center">联系我们</h2>
+        <form class="max-w-md mx-auto">
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 font-bold mb-2">姓名</label>
+                <input type="text" id="name" class="w-full border border-gray-300 p-3 rounded-md" placeholder="请输入你的姓名">
+            </div>
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 font-bold mb-2">邮箱</label>
+                <input type="email" id="email" class="w-full border border-gray-300 p-3 rounded-md" placeholder="请输入你的邮箱">
+            </div>
+            <div class="mb-6">
+                <label for="message" class="block text-gray-700 font-bold mb-2">留言</label>
+                <textarea id="message" rows="4" class="w-full border border-gray-300 p-3 rounded-md" placeholder="请输入你的留言"></textarea>
+            </div>
+            <button type="submit" class="bg-green-600 text-white py-3 px-6 rounded-md hover:bg-green-700">提交</button>
+        </form>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="text-center text-gray-600 mt-16">
+        <p>&copy; 2025 海小狮心理健康对话咨询. 保留所有权利.</p>
+    </footer>
+</body>
+
+</html>
+    
