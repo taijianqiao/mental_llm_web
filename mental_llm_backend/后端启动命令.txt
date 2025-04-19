@@ -1,0 +1,5 @@
+export MAVEN_OPTS="-Djdk.attach.allowAttachSelf=true -Djdk.module.illegalAccess.silent=true --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED"^C
+
+mvn clean install
+
+在 MagicConchBackendApplication.java 类中启动

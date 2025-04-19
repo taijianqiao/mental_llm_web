@@ -1,0 +1,3 @@
+APP（大模型部署），mental_llm_backend（Java框架SpringBoot后端），mental_llm_frontend（Vue 3 框架前端）文件夹是项目部署代码
+
+Qwen2.5-7B-Instruct_lora文件夹是项目微调代码

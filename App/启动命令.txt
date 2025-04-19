@@ -1,0 +1,6 @@
+note:--model dir is qwen2.5_7b model
+
+conda activate fastApi
+- 进入包含 `main.py` 文件的目录，然后运行以下命令来启动 FastAPI 应用
+```
+uvicorn main:app --reload --host 0.0.0.0
